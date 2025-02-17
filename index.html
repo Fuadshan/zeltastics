@@ -10,6 +10,7 @@
             background-color: #f4f4f9;
             margin: 0;
             padding: 0;
+            text-align: center;
         }
         header {
             background: #333;
@@ -35,21 +36,21 @@
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        .packs {
+        .packs, .card-container {
             display: flex;
             flex-wrap: wrap;
-            justify-content: space-around;
+            justify-content: center;
         }
-        .pack {
+        .pack, .card {
             border: 1px solid #ddd;
             padding: 10px;
+            margin: 10px;
             border-radius: 5px;
             width: 200px;
-            margin: 10px;
             text-align: center;
             box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
         }
-        .pack button {
+        .pack button, .card button {
             margin-top: 10px;
             padding: 5px 10px;
             background: #4caf50;
@@ -58,28 +59,22 @@
             border-radius: 3px;
             cursor: pointer;
         }
-        .pack button:hover {
+        .pack button:hover, .card button:hover {
             background: #45a049;
         }
-        .card {
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            padding: 10px;
+        .nav-button {
+            display: inline-block;
             margin: 10px;
-            text-align: center;
-            width: 200px;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-        }
-        .card img {
-            width: 100%;
-            height: 150px;
-            object-fit: cover;
+            padding: 10px 20px;
+            color: #fff;
+            background-color: #007BFF;
+            border: none;
             border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
         }
-        #collection {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
+        .nav-button:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
@@ -91,6 +86,7 @@
     <nav>
         <a href="#packs">Packs</a>
         <a href="#collection">Collection</a>
+        <a href="auction_and_trade.html" class="nav-button">Go to Auction & Trade Hub</a>
     </nav>
     <div class="container">
         <section id="packs">
@@ -101,10 +97,12 @@
         </section>
         <section id="collection">
             <h2>Your Collection</h2>
-            <div id="collection"></div>
+            <div id="collection" class="card-container"></div>
         </section>
     </div>
+
     <script>
+        // Packs and Zelto
         const packs = [
             { name: 'Common Pack', price: 100, quantity: 10, probabilities: { Common: 0.85, Uncommon: 0.1, Rare: 0.03, Epic: 0.015, Legendary: 0.005, Mythic: 0, Iconic: 0 } },
             { name: 'Uncommon Pack', price: 750, quantity: 8, probabilities: { Common: 0.6, Uncommon: 0.3, Rare: 0.07, Epic: 0.02, Legendary: 0.02, Mythic: 0.01, Iconic: 0 } },
@@ -115,7 +113,7 @@
             { name: 'Iconic Pack', price: 25000, quantity: 1, probabilities: { Common: 0, Rare: 0, Epic: 0, Legendary: 0, Mythic: 0, Iconic: 1.0 } },
         ];
 
-        let zelto = 400 ;
+        let zelto = 400;
         let collection = [];
 
         function updateBalanceDisplay() {
@@ -135,12 +133,10 @@
                 alert('Not enough Zelto!');
                 return;
             }
-
             if (pack.quantity === 0) {
                 alert("This pack is sold out.");
                 return;
             }
-
             zelto -= pack.price;
             pack.quantity--;
             addRandomCardToCollection(pack.probabilities);
@@ -200,6 +196,7 @@
             });
         }
 
+        // Initial population
         document.addEventListener('DOMContentLoaded', () => {
             renderPacks();
             updateBalanceDisplay();
@@ -208,3 +205,4 @@
     </script>
 </body>
 </html>
+
